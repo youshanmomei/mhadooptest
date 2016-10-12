@@ -1,6 +1,7 @@
 package org.hy.mhadoop.mission13.weibocount.itselfcount;
 
 import com.google.gson.Gson;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -10,7 +11,7 @@ import java.io.IOException;
 /**
  * Created by andy on 2016/10/11.
  */
-public class SelfcountMapper extends Mapper<LongWritable, Text, Text, Text> {
+public class SelfcountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     private Gson gson;
 
@@ -35,7 +36,7 @@ public class SelfcountMapper extends Mapper<LongWritable, Text, Text, Text> {
         //对明星的被关注数进行统计
         if(wb!=null){
             for (String strKey : wb.getIds()) {
-                context.write(new Text(strKey), new Text("1"));
+                context.write(new Text(strKey), new IntWritable(1));
             }
         }
     }
